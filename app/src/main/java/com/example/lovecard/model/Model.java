@@ -4,7 +4,11 @@ import com.example.lovecard.MainContract;
 
 import java.util.Random;
 
+import javax.inject.Inject;
+
 public class Model implements MainContract.ModelCallBack {
+
+    @Inject
     public Model() {
     }
 

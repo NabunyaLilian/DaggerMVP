@@ -12,13 +12,19 @@ import android.widget.TextView;
 
 import com.example.lovecard.MainContract;
 import com.example.lovecard.R;
+import com.example.lovecard.di.DaggerComponent;
+import com.example.lovecard.di.ViewModule;
 import com.example.lovecard.presenter.Presenter;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainContract.ViewCallBack {
     ProgressBar progressBar;
     TextView textView1;
     TextView textView2;
     Button button;
+
+    @Inject
     Presenter presenter;
     ConstraintLayout constraintLayout;
 
@@ -33,7 +39,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         textView1 = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         constraintLayout = findViewById(R.id.layout);
-        presenter = new Presenter(this);
+
+        DaggerComponent.builder()
+                    .viewModule(new ViewModule(this))
+                    .build()
+                    .inject(this);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
